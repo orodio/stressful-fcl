@@ -4,7 +4,10 @@ const fcl = require("@onflow/fcl")
 const fs = require("fs")
 const path = require("path")
 
-fcl.config().put("accessNode.api", "https://access-testnet.onflow.org")
+const ACCESS_NODE =
+  process.env.ACCESS_NODE || "https://access-testnet.onflow.org"
+
+fcl.config().put("accessNode.api", ACCESS_NODE)
 
 let [N, FILE] = process.argv.slice(2)
 N = Number(N || 1)
@@ -34,7 +37,7 @@ const SCRIPT = String(
 ;(async function main() {
   const T1 = Date.now()
   try {
-    console.log(`${N} Script Excutions scheduled.`)
+    console.log(`${N} Script Excutions scheduled to target: ${ACCESS_NODE}`)
     console.log("---SCRIPT---\n\n", SCRIPT, "\n\n------------")
     console.log(
       "SUCCESS",
